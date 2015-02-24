@@ -175,7 +175,6 @@ int PROGMEM noteDurations5[] = {
   2, 1, 1.333, 8, 8, 1, 1.333, 4, 1.333, 4, 4, 4, 3, 3, 3, 1, 2, 2, 1.333, 4, 1.333, 8, 1.333, 8, 1, 2, 3, 3, 3, 1.2, 3, 3, 2, 1.333, 8, 1, 2
 };
 
-byte leds[8][8];
 // pin[xx] on led matrix connected to nn on Arduino (-1 is dummy to make array start at pos 1)
 int pins[17] = { -1, 5, 4, 3, 2, 18, 15, 16, 17, 13, 12, 11, 10, 9, 8, 7, 6};
 
@@ -265,7 +264,7 @@ void clearLeds() {
   // Clear display array
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
-      leds[i][j] = 0;
+      gGame.framebuffer[i][j] = 0;
     }
   }
 }
@@ -275,11 +274,11 @@ void displayText(String text, int k, int del)
   for (int l = 0; l < 8; l++) {
     for (int i = 0; i < 7; i++) {
       for (int j = 0; j < 8; j++) {
-        leds[j][i] = leds[j][i + 1];
+        gGame.framebuffer[j][i] = gGame.framebuffer[j][i + 1];
       }
     }
     for (int j = 0; j < 8; j++) {
-      leds[j][7] = ((pgm_read_word(&(font8x8_basic[text[k]][j])) & (1 << l)) > 0) ? 1 : 0;
+      gGame.framebuffer[j][7] = ((pgm_read_word(&(font8x8_basic[text[k]][j])) & (1 << l)) > 0) ? 1 : 0;
     }
     delay(del);
   }
@@ -291,11 +290,11 @@ void slideText(String text, int del) {
   { for (int l = 0; l < 8; l++) {
       for (int i = 0; i < 7; i++) {
         for (int j = 0; j < 8; j++) {
-          leds[j][i] = leds[j][i + 1];
+          gGame.framebuffer[j][i] = gGame.framebuffer[j][i + 1];
         }
       }
       for (int j = 0; j < 8; j++) {
-        leds[j][7] = ((pgm_read_word(&(font8x8_basic[text[k]][j])) & (1 << l)) > 0) ? 1 : 0;
+        gGame.framebuffer[j][7] = ((pgm_read_word(&(font8x8_basic[text[k]][j])) & (1 << l)) > 0) ? 1 : 0;
       }
       delay(del);
     }
@@ -311,11 +310,11 @@ void display() {
     col = 0;
   }
   for (int row = 0; row < 8; row++) {
-    if (leds[row][col] > 0) {
-      if ((leds[row][col]) == 1)
+    if (gGame.framebuffer[row][col] > 0) {
+      if ((gGame.framebuffer[row][col]) == 1)
         digitalWrite(rows[7 - row], LOW); // Turn on this led
 
-      if ((leds[row][col]) == 2)
+      if ((gGame.framebuffer[row][col]) == 2)
       {
         if (brightness > 7)
           digitalWrite(rows[7 - row], LOW);
@@ -381,32 +380,32 @@ void buzz(int targetPin, long frequency, long length) {
     digitalWrite(targetPin, LOW); // write the buzzer pin low to pull back the diaphram
     delayMicroseconds(delayValue); // wait again or the calculated delay value
   }
-  
+
 
 }
 
-void play_tune2(int melodyPin,int music,int total)
+void play_tune2(int melodyPin, int music, int total)
 {
-  
 
-  
+
+
   // int size = sizeof(melody) / sizeof(int);
   for (int thisNote = 0; thisNote < total; thisNote++) {
 
     // to calculate the note duration, take one second
     // divided by the note type.
     //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-    int noteDuration =0;
-    if(music==0)
-    {noteDuration = 450 / (pgm_read_word_near(noteDurations1 + thisNote));
-    buzz(melodyPin, pgm_read_word_near(melody1 + thisNote), noteDuration);
-  }
-  else
-  {
-    noteDuration = 250 / (pgm_read_word_near(noteDurations5 + thisNote));
-    buzz(melodyPin, pgm_read_word_near(melody5 + thisNote), noteDuration);
+    int noteDuration = 0;
+    if (music == 0)
+    { noteDuration = 450 / (pgm_read_word_near(noteDurations1 + thisNote));
+      buzz(melodyPin, pgm_read_word_near(melody1 + thisNote), noteDuration);
+    }
+    else
+    {
+      noteDuration = 250 / (pgm_read_word_near(noteDurations5 + thisNote));
+      buzz(melodyPin, pgm_read_word_near(melody5 + thisNote), noteDuration);
 
-  }
+    }
 
     // to distinguish the notes, set a minimum time between them.
     // the note's duration + 30% seems to work well:
@@ -530,7 +529,7 @@ int treatValueFalconY(int data) {
 void setPattern() {
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
-      leds[i][j] = SABER[i][j];
+      gGame.framebuffer[i][j] = SABER[i][j];
     }
   }
 
@@ -545,7 +544,7 @@ void start_game()
   if (pattern == 0)
   { setPattern();
     // delay(5000);
-    play_tune2(melodyPins,0,9);
+    play_tune2(melodyPins, 0, 9);
   }
 
   String text = start_intro + start_game_name;
@@ -557,11 +556,11 @@ void start_game()
 
 void end_game()
 {
-  
+
   if (pattern == 15)
   { setPattern();
     // delay(5000);
-     play_tune2(melodyPins,1,17);
+    play_tune2(melodyPins, 1, 17);
   }
   String text = gGame.score + end_string;
   displayText(text, ++pattern % text.length(), 85);
@@ -570,9 +569,9 @@ void end_game()
 void drawFalcon()
 {
 
-  leds[gGame.falconX][gGame.falconY] = 1;
-  leds[gGame.falconX - 1][gGame.falconY - 1] = 1;
-  leds[gGame.falconX - 1][gGame.falconY + 1] = 1;
+  gGame.framebuffer[gGame.falconX][gGame.falconY] = 1;
+  gGame.framebuffer[gGame.falconX - 1][gGame.falconY - 1] = 1;
+  gGame.framebuffer[gGame.falconX - 1][gGame.falconY + 1] = 1;
 
 }
 
@@ -616,7 +615,7 @@ void read_input()
   {
     // clearLeds();
     updateInputFalconY(treatValueFalconY(analogRead(joyPin1)));
-    gGame.speed+=  map(value2, 0, 1024, -1, 2);
+    gGame.speed +=  map(value2, 0, 1024, -1, 2);
     // updateInputFalconX(treatValueFalconX(analogRead(joyPin2)));
     //   gGame.falconY = treatValueFalconY(analogRead(joyPin1));
 
@@ -636,7 +635,7 @@ void test_matrix()
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
       clearScreen();
-      leds[i][j] = 1;
+      gGame.framebuffer[i][j] = 1;
       delay(50);
 
     }
@@ -652,7 +651,7 @@ void clearAsteroids()
 void placeAsteroid(Asteroid ast)
 {
   if ((((ast.x) > -1) && (ast.x < 8)) && ((((ast.y) > -1) && (ast.y < 8))))
-    leds[ast.x][ast.y] = 2;
+    gGame.framebuffer[ast.x][ast.y] = 2;
 
 }
 
@@ -666,8 +665,8 @@ void moveAsteroid(int thisAsteroid)
   else
   {
     gGame.asteroids[thisAsteroid].x += gGame.asteroids[thisAsteroid].speedx;
-    if(gGame.asteroids[thisAsteroid].x>0)
-    gGame.asteroids[thisAsteroid].y += gGame.asteroids[thisAsteroid].speedy;
+    if (gGame.asteroids[thisAsteroid].x > 0)
+      gGame.asteroids[thisAsteroid].y += gGame.asteroids[thisAsteroid].speedy;
   }
 }
 
@@ -682,7 +681,7 @@ boolean checkAsteroid(int thisAsteroid)
     }
     else
     {
-      //buzz(melodyPins, melody1[0], 10);      
+      //buzz(melodyPins, melody1[0], 10);
       gGame.score++;
     }
   }
@@ -730,7 +729,7 @@ void loop() {
   break;
   case PLAY:
   {
-    music =0;
+    music = 0;
     clearLeds();
     drawFalcon();
     drawAsteroids();
