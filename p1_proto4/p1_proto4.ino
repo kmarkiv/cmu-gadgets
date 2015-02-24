@@ -197,10 +197,10 @@ int col = 0;
 int melodyPins = 0;
 int music  = 0;
 
-const String start_intro = "Hi";
-const String startGame_name = "..STARWARS...";
+const String start_intro = "  Best ";
+const String startGame_name = "pts";
 const String start_info = ".. Asteroids!";
-const String end_string = " . score ";
+const String end_string = "  score ";
 const String points = 0;
 const String end_ponts = " asteroids !!!";
 
@@ -436,6 +436,15 @@ void playSong(int melodyPin, int music, int total)
 
 }
 
+void setPatternDelay(int *arr) {
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 8; j++) {
+      gGame.framebuffer[i][j] = *((arr + i * 8) + j);
+    }
+  }
+
+}
+
 void setup() {
   // sets the pins as output
 
@@ -469,6 +478,12 @@ void setup() {
   FrequencyTimer2::setPeriod(500);
   // Set interrupt routine to be called
   FrequencyTimer2::setOnOverflow(display);
+
+
+  setPatternDelay((int *)SABER);
+  // delay(5000);
+  playSong(melodyPins, 0, 9);
+
 
 }
 
@@ -536,46 +551,12 @@ int treatValueFalconY(int data) {
   return  map(data, 0, 1023, -2, 3);
 }
 
-void setPattern() {
-  for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 8; j++) {
-      gGame.framebuffer[i][j] = SABER[i][j];
-    }
-  }
 
-}
 
-void setPatternDelay(int *arr) {
-  for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 8; j++) {
-      gGame.framebuffer[i][j] = *((arr + i * 8) + j);
-    }
-  }
-
-}
-
-void setSad() {
-  for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 8; j++) {
-      gGame.framebuffer[i][j] = SABER[i][j];
-    }
-  }
-
-}
 
 void startGame()
 {
 
-  // slideText(start_intro, 60);
-  // slideText(startGame_name, 90);
-
-
-
-  if (pattern == 0)
-  { setPattern();
-    // delay(5000);
-    playSong(melodyPins, 0, 9);
-  }
 
 
   String text = start_intro + gGame.oldScore + startGame_name;
@@ -588,34 +569,29 @@ void startGame()
 void endGame()
 {
 
-  if (pattern == 12)
-  { setPattern();
-    // delay(5000);
-    playSong(melodyPins, 1, 17);
-  }
 
-  String text =  "High " + gGame.score;
 
-  if (gGame.score > gGame.oldScore)
-    text = "High " + gGame.score;
-  else
-    text = "Almost " + gGame.score + gGame.oldScore;
+  String text;
+
+
+  text = end_string + gGame.score;
 
 
   if (pattern == 0)
     if (gGame.score > gGame.oldScore)
     {
       setPatternDelay((int *)YODA);
-      delay(3000);
+      playSong(melodyPins, 1, 17);
+      initializeGame();
     }
     else
     {
       setPatternDelay((int *)MAUL);
-      delay(3000);
+      playSong(melodyPins, 0, 9);
 
     }
 
-  displayText(text, ++pattern % text.length(), 85);
+  displayText(text, ++pattern % text.length(), 65);
 }
 
 void drawFalcon()
@@ -658,7 +634,7 @@ void readInput()
     if (value2 > 80)
     {
       clearScreen();
-      gGame.state = TEST;
+      initializeGame();
     }
 
   } // do something
