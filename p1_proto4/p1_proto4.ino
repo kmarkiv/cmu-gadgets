@@ -2,7 +2,7 @@
   Star Wars Arduino
 
   Describe what it does in layman's terms.  Refer to the components
-  attached to the various pins.
+  attached to the various pins. It dis for project for Applied Gagets CMU HCII
 
   The circuit:
   * Led Matrix
@@ -13,7 +13,7 @@
   Modified day month year
   By author's name
 
-  http://url/of/online/tutorial.cc
+  https://github.com/kmarkiv/cmu-gadgets/tree/master/p1_proto4
 
 */
 #include <avr/pgmspace.h>
@@ -151,27 +151,27 @@ const char PROGMEM font8x8_basic[128][8] = {
   { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}    // U+007F
 };
 
-PROGMEM int melody1[] = {
+const PROGMEM int melody1[] = {
   NOTE_G4, NOTE_G4, NOTE_G4, NOTE_DS4, NOTE_AS4, NOTE_G4, NOTE_DS4, NOTE_AS4, NOTE_G4, NOTE_D5, NOTE_D5, NOTE_D5, NOTE_DS5, NOTE_AS4, NOTE_FS4, NOTE_DS4, NOTE_AS4, NOTE_G4, NOTE_G5, NOTE_G4, NOTE_G4, NOTE_G5, NOTE_FS5, NOTE_F5, NOTE_E5, NOTE_DS5, NOTE_E5, 0, NOTE_GS4, NOTE_CS5, NOTE_C5, NOTE_B4, NOTE_AS4, NOTE_A4, NOTE_AS4, 0, NOTE_DS4, NOTE_FS4, NOTE_DS4, NOTE_FS4, NOTE_AS4, NOTE_G4, NOTE_AS4, NOTE_D5, NOTE_G5, NOTE_G4, NOTE_G4, NOTE_G5, NOTE_FS5, NOTE_F5, NOTE_E5, NOTE_DS5, NOTE_E5, 0, NOTE_GS4, NOTE_CS5, NOTE_C5, NOTE_B4, NOTE_AS4, NOTE_A4, NOTE_AS4, 0, NOTE_DS4, NOTE_FS4, NOTE_DS4, NOTE_AS4, NOTE_G4, NOTE_DS4, NOTE_AS4, NOTE_G4
 };
 // note durations for Darth Vader's Theme Song: 4 = quarter note, 8 = eighth note, etc.:
-PROGMEM int noteDurations1[] = {
+const PROGMEM int noteDurations1[] = {
   4, 4, 4, 6, 16, 4, 6, 16, 2, 4, 4, 4, 6, 16, 4, 6, 16, 2, 4, 6, 16, 4, 6, 16, 16, 16, 8, 8, 8, 4, 6, 16, 16, 16, 8, 8, 8, 4, 6, 16, 4, 6, 16, 2, 4, 6, 16, 4, 6, 16, 16, 16, 8, 8, 8, 4, 6, 16, 16, 16, 8, 8, 8, 4, 6, 16, 4, 6, 16, 2,
 };
 // Notes in the melody Cantina Band
-int PROGMEM melody2[] = {
+const int PROGMEM melody2[] = {
   NOTE_A4, 0, NOTE_D5, 0, NOTE_A4, 0, NOTE_D5, 0, NOTE_A4, NOTE_D5, 0, NOTE_A4, 0, 0, NOTE_GS4, NOTE_A4, 0, NOTE_A4, NOTE_GS4, NOTE_A4, NOTE_G4, 0, NOTE_FS4, NOTE_G4, NOTE_FS4, NOTE_F4, NOTE_D4, NOTE_A4, 0, NOTE_D5, 0, NOTE_A4, 0, NOTE_D5, 0, NOTE_A4, NOTE_D5, 0, NOTE_A4, 0, 0, NOTE_GS4, NOTE_A4, 0, NOTE_G4, 0, NOTE_G4, NOTE_FS4, NOTE_G4, 0, NOTE_C5, NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_A4, 0, NOTE_D5, 0, NOTE_A4, 0, NOTE_D5, 0, NOTE_A4, NOTE_D5, 0, NOTE_A4, 0, 0, NOTE_GS4, NOTE_A4, 0, NOTE_C5, 0, 0, NOTE_C5, NOTE_A4, NOTE_G4, 0, NOTE_F4, NOTE_D4, NOTE_D4, NOTE_F4, NOTE_A4, NOTE_C5, NOTE_DS5, NOTE_D5, NOTE_GS4, NOTE_A4, 0, NOTE_F4, 0
 };
 // note duration for Cantina Band
-int PROGMEM noteDurations2[] = {
+const int PROGMEM noteDurations2[] = {
   4, 64, 4, 64, 4, 64, 4, 64, 8, 4, 64, 8, 64, 8, 8, 4, 64, 8, 8, 8, 8, 8, 8, 8, 8, 2.666, 1.99, 4, 64, 4, 64, 4, 64, 4, 64, 8, 4, 64, 8, 64, 8, 8, 4, 64, 8, 8, 2.666, 8, 4, 64, 8, 4, 4, 2.666, 4, 64, 4, 64, 4, 64, 4, 64, 8, 4, 64, 8, 64, 8, 8, 4, 64, 8, 64, 8, 2.666, 8, 4, 64, 2.666, 1.99, 2, 2, 2, 2, 4, 4, 8, 4, 64, 4, 2
 };
 // notes in melody May the Force be with You
-int PROGMEM melody5[] = {
+const int PROGMEM melody5[] = {
   NOTE_G3, NOTE_C4, NOTE_D4, NOTE_DS4, NOTE_F4, NOTE_DS4, NOTE_G3, NOTE_G3, NOTE_C4, NOTE_D4, NOTE_DS4, NOTE_G3, NOTE_DS4, NOTE_C4, NOTE_G4, NOTE_F4, 0, NOTE_G3, NOTE_C4, NOTE_D4, NOTE_DS4, NOTE_G3, NOTE_G4, NOTE_DS4, NOTE_C5, NOTE_C4, NOTE_DS4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_DS4, NOTE_C4, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_C4, 0
 };
 // Note duration for May the Force Be with You
-int PROGMEM noteDurations5[] = {
+const int PROGMEM noteDurations5[] = {
   2, 1, 1.333, 8, 8, 1, 1.333, 4, 1.333, 4, 4, 4, 3, 3, 3, 1, 2, 2, 1.333, 4, 1.333, 8, 1.333, 8, 1, 2, 3, 3, 3, 1.2, 3, 3, 2, 1.333, 8, 1, 2
 };
 
@@ -184,18 +184,26 @@ int rows[8] = {pins[13], pins[3], pins[4], pins[10], pins[06], pins[11], pins[15
 // row[xx] of leds = pin yy on led matrix
 int cols[8] = {pins[9], pins[14], pins[8], pins[12], pins[1], pins[7], pins[2], pins[5]};
 
+// counter for pattern
 int pattern = 0;
 
-int brightness = 0;
+// counter for brighness
+int gBrightness = 0;
 
-const int  switchPin = A0;
-int joyPin1 = A0;                 // slider variable connecetd to analog pin 0
+
+// JoyStick Pins
+int joyPin1 = A0;                 
 int joyPin2 = A5;
-int value1 = 0;                  // variable to read the value from the analog pin 0
+int value1 = 0;                  
 int value2 = 0;
+
+// iterating through columns
 int col = 0;
+
+// pin for melody
 int melodyPins = 0;
 int music  = 0;
+
 
 const String start_intro = "  Best ";
 const String startGame_name = "pts";
@@ -204,7 +212,7 @@ const String end_string = "  score ";
 const String points = 0;
 const String end_ponts = " asteroids !!!";
 
-int SABER[8][8] { \
+char SABER[8][8] { \
   {0, 0, 0, 0, 0, 0, 1, 1},  \
   {0, 0, 0, 0, 0, 1, 1, 1}, \
   {0, 0, 0, 0, 1, 1, 1, 0}, \
@@ -215,7 +223,7 @@ int SABER[8][8] { \
   {2, 0, 0, 0, 0, 0, 0, 0} \
 };
 
-int MAUL[8][8] { \
+char MAUL[8][8] { \
   {0, 2, 0, 2, 2, 0, 2, 0},  \
   {0, 1, 1, 1, 1, 1, 1, 0}, \
   {1, 0, 1, 1, 1, 1, 0, 1}, \
@@ -226,7 +234,7 @@ int MAUL[8][8] { \
   {0, 0, 1, 1, 1, 1, 0, 0} \
 };
 
-int YODA[8][8] { \
+char YODA[8][8] { \
   {0, 0, 0, 0, 0, 0, 0, 0},  \
   {0, 0, 0, 1, 1, 0, 0, 0}, \
   {2, 0, 1, 1, 1, 1, 0, 2}, \
@@ -237,7 +245,7 @@ int YODA[8][8] { \
   {1, 1, 1, 0, 1, 1, 1, 1} \
 };
 
-
+// states of the game
 typedef enum GameState {
   START,
   PLAY,
@@ -245,6 +253,7 @@ typedef enum GameState {
   TEST,
 };
 
+// asteroid data structure
 typedef struct Asteroid {
   int x;
   int y;
@@ -254,6 +263,7 @@ typedef struct Asteroid {
   int type;
 };
 
+//Game engine
 typedef struct Game {
 
   GameState state;
@@ -272,10 +282,10 @@ typedef struct Game {
 
   int falconX;
 
-  Asteroid asteroids[8];
+  Asteroid asteroids[8]={};
 
 
-  int framebuffer[8][8];
+  char framebuffer[8][8]= {};
 };
 
 
@@ -290,6 +300,7 @@ void clearLeds() {
   }
 }
 
+// display text array
 void displayText(String text, int k, int del)
 {
   for (int l = 0; l < 8; l++) {
@@ -305,6 +316,8 @@ void displayText(String text, int k, int del)
   }
 
 }
+
+// loop a block of text
 void slideText(String text, int del) {
 
   for (int k = 0; k < text.length(); k++)
@@ -324,13 +337,13 @@ void slideText(String text, int del) {
 
 // Interrupt routine
 void display() {
-  brightness = ++brightness % 10;
+  gBrightness = ++gBrightness % 10;
   digitalWrite(cols[col], LOW);  // Turn whole previous column off
   col = ++col % 8;
   for (int row = 0; row < 8; row++) {
-    //   brightness = ++brightness % 10;
+    //   gBrightness = ++gBrightness % 10;
     if (gGame.framebuffer[row][7 - col] > 0) {
-      if (((gGame.framebuffer[row][7 - col]) == 1) || (((gGame.framebuffer[row][7 - col]) == 2) & ((brightness > 7))))
+      if (((gGame.framebuffer[row][7 - col]) == 1) || (((gGame.framebuffer[row][7 - col]) == 2) & ((gBrightness > 7))))
         digitalWrite(rows[row], LOW); // Turn on this led
 
     }
@@ -341,6 +354,7 @@ void display() {
   digitalWrite(cols[col], HIGH); // Turn whole column on at once (for equal lighting times)
 }
 
+// Initialize asteroid 
 Asteroid generateAsteroid()
 {
 
@@ -353,6 +367,8 @@ Asteroid generateAsteroid()
   ast.type = 0;
   return ast;
 }
+
+// initialize all asteroids
 void initAsteroids()
 {
 
@@ -361,19 +377,24 @@ void initAsteroids()
   }
 }
 
+// clear the screen and LED display
 void clearScreen()
 {
   pattern = 0;
   clearLeds();
 }
 
+// initialize the game
 void initializeGame()
 {
 
   clearScreen();
   gGame.state = START;
+  // Total asteroids
   gGame.asteroidCount = 7;
-  gGame.oldScore = (gGame.score > 10) ? gGame.score : 10;
+  // Use highscore if available
+  gGame.oldScore = (gGame.oldScore>gGame.score)?gGame.oldScore:gGame.score;
+  gGame.oldScore = (gGame.oldScore > 10) ? gGame.oldScore : 10;
   gGame.score = 1;
   gGame.falconX = 7;
   gGame.falconY = 4;
@@ -381,6 +402,7 @@ void initializeGame()
   initAsteroids();
 }
 
+// online resource
 void buzz(int targetPin, long frequency, long length) {
   //digitalWrite(12, HIGH);
   long delayValue = 1000000 / frequency / 2; // calculate the delay value between transitions
@@ -436,6 +458,7 @@ void playSong(int melodyPin, int music, int total)
 
 }
 
+// set the pattern for sliding text
 void setPatternDelay(int *arr) {
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
@@ -445,6 +468,7 @@ void setPatternDelay(int *arr) {
 
 }
 
+//
 void setup() {
   // sets the pins as output
 
@@ -488,7 +512,7 @@ void setup() {
 }
 
 
-
+// @Todo use this for sound
 void playTone(int melodyPin, int number)
 {
   //int size = sizeof(melody1) / sizeof(int);
@@ -517,41 +541,42 @@ void playTone(int melodyPin, int number)
 
 
 
-
+// get value in percentage
 int treatValue(int data) {
   return  map(data, 0, 1023, 0, 100);
 }
 
+// Joystick X
 int treatValueFalconX(int data) {
   return  map(data, 0, 1023, -2, 2);
 }
 
+// Stay in matrix
 void normalizeFalconX() {
   gGame.falconX = (gGame.falconX > 7) ? 7 : (gGame.falconX < 1) ? 1 : gGame.falconX;
 }
 
+// Stay in matrix
 void normalizeFalconY() {
   gGame.falconY = (gGame.falconY > 6) ? 6 : (gGame.falconY < 1) ? 1 : gGame.falconY;
 }
-
+// 
 void updateInputFalconX(int input)
 {
   gGame.falconX += input;
   normalizeFalconX();
 }
-
+//
 void updateInputFalconY(int input)
 {
   gGame.falconY -= input;
   normalizeFalconY();
 }
 
-
+//
 int treatValueFalconY(int data) {
   return  map(data, 0, 1023, -2, 3);
 }
-
-
 
 
 void startGame()
@@ -580,20 +605,24 @@ void endGame()
   if (pattern == 0)
     if (gGame.score > gGame.oldScore)
     {
+      //show yoda on high score
       setPatternDelay((int *)YODA);
+      // play "yoda and the force"
       playSong(melodyPins, 1, 17);
       initializeGame();
     }
     else
     {
+      //show darth maul if you fa
       setPatternDelay((int *)MAUL);
+      // play darth vader music
       playSong(melodyPins, 0, 9);
 
     }
 
   displayText(text, ++pattern % text.length(), 65);
 }
-
+//draw the plane on the screen
 void drawFalcon()
 {
 
@@ -626,8 +655,6 @@ void readInput()
       gGame.state = PLAY;
 
     }
-    //  gGame.state = STOP;
-    // do something
   } break;
   case STOP:
   {
@@ -637,18 +664,18 @@ void readInput()
       initializeGame();
     }
 
-  } // do something
+  } 
   break;
   case PLAY:
   {
-    // clearLeds();
+    // move falcon
     updateInputFalconY(treatValueFalconY(analogRead(joyPin1)));
     //gGame.speed +=  map(value2, 0, 1024, -1, 2);
     updateInputFalconX(treatValueFalconX(analogRead(joyPin2)));
     //   gGame.falconY = treatValueFalconY(analogRead(joyPin1));
 
 
-  } // do something
+  } 
   break;
 
 
@@ -656,7 +683,7 @@ void readInput()
     // do something
   }
 }
-
+// loop through the matrix and test it
 void testMatrix()
 {
 
@@ -670,12 +697,7 @@ void testMatrix()
   }
 }
 
-void clearAsteroids()
-{
-  gGame.asteroids = {};
-}
-
-
+// Reset Asteroid if it leaves the screen
 void placeAsteroid(Asteroid ast)
 {
   if ((((ast.x) > -1) && (ast.x < 8)) && ((((ast.y) > -1) && (ast.y < 8))))
@@ -683,9 +705,11 @@ void placeAsteroid(Asteroid ast)
 
 }
 
+// Move asteroid across the screen
 void moveAsteroid(int thisAsteroid)
 {
 
+  //reset asteroid if it goes outside the screem
   if (gGame.asteroids[thisAsteroid].x > 7)
   {
 
@@ -696,12 +720,16 @@ void moveAsteroid(int thisAsteroid)
   }
   else
   {
-    gGame.asteroids[thisAsteroid].x += gGame.asteroids[thisAsteroid].speedx;
+
+  // update asteroid position
+    gGame.asteroidse[thisAsteroid].x += gGame.asteroids[thisAsteroid].speedx;
+    // move asteroid in y (Sideways) if it is in the screen
     if (gGame.asteroids[thisAsteroid].x > 0)
       gGame.asteroids[thisAsteroid].y += gGame.asteroids[thisAsteroid].speedy;
   }
 }
 
+//check if asteroid crashes the falcon
 boolean checkAsteroid(int thisAsteroid)
 {
   if ((gGame.asteroids[thisAsteroid].x == gGame.falconX) || (gGame.asteroids[thisAsteroid].x == (gGame.falconX - 1)))
@@ -715,6 +743,7 @@ boolean checkAsteroid(int thisAsteroid)
   return false;
 }
 
+//Asteroid life cycle
 void drawAsteroids()
 {
 
@@ -736,17 +765,18 @@ void loop() {
   case START:
   { startGame();
     //  gGame.state = STOP;
-    // do something
   } break;
   case STOP:
   { endGame();
 
-  } // do something
+  } 
   break;
   //default:
   // do something
   case TEST:
   {
+    
+    //test matrix and restart game
     testMatrix();
     clearLeds();
     //gGame.state = START;
