@@ -92,56 +92,6 @@ void setup() {
   accelgyro.setZGyroOffset(0);
 }
 
-///////////////////////////////////   LOOP   ////////////////////////////////////
-void loop() {
-  if (state==0){
-    Serial.println("\nReading sensors for first time...");
-    meansensors();
-    state++;
-    delay(1000);
-  }
-
-  if (state==1) {
-    Serial.println("\nCalculating offsets...");
-    calibration();
-    state++;
-    delay(1000);
-  }
-
-  if (state==2) {
-    meansensors();
-    Serial.println("\nFINISHED!");
-    Serial.print("\nSensor readings with offsets:\t");
-    Serial.print(mean_ax); 
-    Serial.print("\t");
-    Serial.print(mean_ay); 
-    Serial.print("\t");
-    Serial.print(mean_az); 
-    Serial.print("\t");
-    Serial.print(mean_gx); 
-    Serial.print("\t");
-    Serial.print(mean_gy); 
-    Serial.print("\t");
-    Serial.println(mean_gz);
-    Serial.print("Your offsets:\t");
-    Serial.print(ax_offset); 
-    Serial.print("\t");
-    Serial.print(ay_offset); 
-    Serial.print("\t");
-    Serial.print(az_offset); 
-    Serial.print("\t");
-    Serial.print(gx_offset); 
-    Serial.print("\t");
-    Serial.print(gy_offset); 
-    Serial.print("\t");
-    Serial.println(gz_offset); 
-    Serial.println("\nData is printed as: acelX acelY acelZ giroX giroY giroZ");
-    Serial.println("Check that your sensor readings are close to 0 0 16384 0 0 0");
-    Serial.println("If calibration was succesful write down your offsets so you can set them in your projects using something similar to mpu.setXAccelOffset(youroffset)");
-    while (1);
-  }
-}
-
 ///////////////////////////////////   FUNCTIONS   ////////////////////////////////////
 void meansensors(){
   long i=0,buff_ax=0,buff_ay=0,buff_az=0,buff_gx=0,buff_gy=0,buff_gz=0;
@@ -213,5 +163,57 @@ void calibration(){
     if (ready==6) break;
   }
 }
+
+///////////////////////////////////   LOOP   ////////////////////////////////////
+void loop() {
+  if (state==0){
+    Serial.println("\nReading sensors for first time...");
+    meansensors();
+    state++;
+    delay(1000);
+  }
+
+  if (state==1) {
+    Serial.println("\nCalculating offsets...");
+    calibration();
+    state++;
+    delay(1000);
+  }
+
+  if (state==2) {
+    meansensors();
+    Serial.println("\nFINISHED!");
+    Serial.print("\nSensor readings with offsets:\t");
+    Serial.print(mean_ax); 
+    Serial.print("\t");
+    Serial.print(mean_ay); 
+    Serial.print("\t");
+    Serial.print(mean_az); 
+    Serial.print("\t");
+    Serial.print(mean_gx); 
+    Serial.print("\t");
+    Serial.print(mean_gy); 
+    Serial.print("\t");
+    Serial.println(mean_gz);
+    Serial.print("Your offsets:\t");
+    Serial.print(ax_offset); 
+    Serial.print("\t");
+    Serial.print(ay_offset); 
+    Serial.print("\t");
+    Serial.print(az_offset); 
+    Serial.print("\t");
+    Serial.print(gx_offset); 
+    Serial.print("\t");
+    Serial.print(gy_offset); 
+    Serial.print("\t");
+    Serial.println(gz_offset); 
+    Serial.println("\nData is printed as: acelX acelY acelZ giroX giroY giroZ");
+    Serial.println("Check that your sensor readings are close to 0 0 16384 0 0 0");
+    Serial.println("If calibration was succesful write down your offsets so you can set them in your projects using something similar to mpu.setXAccelOffset(youroffset)");
+    while (1);
+  }
+}
+
+
 
 
